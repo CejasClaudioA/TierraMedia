@@ -18,6 +18,6 @@ public enum TipoAtraccionEnum {
 
     @Override
     public String toString() {
-        return "descripcion: " + descripcion;
+    	return  descripcion;
     }
 }
