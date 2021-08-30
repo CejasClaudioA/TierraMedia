@@ -47,12 +47,19 @@ public class Usuario {
 	public void setPreferenciaAtraccion(TipoAtraccionEnum preferenciaAtraccion) {
 		this.preferenciaAtraccion = preferenciaAtraccion;
 	}
+	
+	public void setPromociones(Promocion promocion) {
+		this.promociones.add(promocion);
+	}
 
 	@Override
 	public String toString() {
 		return "Nombre usuario: " + nombre + ", presupuesto: $" + presupuesto + ", tiempoDisponible: " + tiempoDisponible
 				+ ", preferenciaAtraccion:" + preferenciaAtraccion;
-	}	
+	}
+	
+	
+	
 	
 	
 }

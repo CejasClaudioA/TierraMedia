@@ -1,6 +1,7 @@
 package TierraMedia;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -38,6 +39,14 @@ public class ClienteTierraMedia {
 		
 		PromocionAxB PromocionAxB = new PromocionAxB("Pack paisajes", TipoAtraccionEnum.PAISAJE, atraccion3);
 		System.out.println(PromocionAxB.getMontoPromo());
+		
+		ArrayList<Promocion> promociones = new ArrayList<>(); 
+		promociones.add(PromocionPorcentual);
+		promociones.add(PromocionAbsoluta);
+		promociones.add(PromocionAxB);
+		Collections.sort(promociones);
+		System.out.println(promociones);
+		
 		
 		
 		

@@ -14,4 +14,5 @@ public class PromocionAxB extends Promocion{
 		return getCosto() - this.atraccion.get(this.atraccion.size()-1).getCostoDeVisita();
 	}
 
+
 }

@@ -15,4 +15,5 @@ public class PromocionPorcentual extends Promocion{
 		return getCosto() - (getCosto()*this.descuento)/100;
 	}
 
+
 }
