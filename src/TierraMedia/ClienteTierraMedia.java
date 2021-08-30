@@ -1,5 +1,6 @@
 package TierraMedia;
 
+import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -7,38 +8,71 @@ public class ClienteTierraMedia {
 
 	public static void main(String[] args) {
 		
-		Scanner sc = new Scanner(System.in);
-		boolean salir = false;
-		int opcion;
-		System.out.println("¡Bienvenido/a a Tierra Media!");
-		System.out.println("Ingresar nombre completo:");
-    	String nombre =sc.nextLine();
-        System.out.println("Ingresar presupuesto:");
-        int presupuesto =sc.nextInt();
-        System.out.println("Ingresar tiempo disponible:");
-        double tiempoDisponible =sc.nextDouble();
-        System.out.println("Ingresar preferencia:");
-        System.out.println("1."+TipoAtraccionEnum.AVENTURA);
-        System.out.println("2."+TipoAtraccionEnum.DEGUSTACION);
-        System.out.println("3."+TipoAtraccionEnum.PAISAJE);
-        TipoAtraccionEnum tipoAtraccion=TipoAtraccionEnum.AVENTURA;
-            switch(sc.nextInt()) {
-            case 1:
-            	 tipoAtraccion= TipoAtraccionEnum.AVENTURA;
-            	break;
-            case 2:
-            	tipoAtraccion = TipoAtraccionEnum.DEGUSTACION;
-            	break;
-            case 3:
-            	tipoAtraccion = TipoAtraccionEnum.PAISAJE;
-            	break;
-        	default:
-        		sc.close();
-            }
-            
-        Usuario usuario = new Usuario(nombre,presupuesto,tiempoDisponible,tipoAtraccion);
-        System.out.println(usuario);
+		Atraccion moria = new Atraccion("Moria", 10, 2, 6, TipoAtraccionEnum.AVENTURA);
+		Atraccion minas = new Atraccion("Minas Tirith", 5, 2.5, 25, TipoAtraccionEnum.PAISAJE);
+		Atraccion comarca = new Atraccion("La Comarca", 3, 6.5, 150, TipoAtraccionEnum.DEGUSTACION);
+		Atraccion mordor = new Atraccion("Mordor", 25, 3, 4, TipoAtraccionEnum.AVENTURA);
+		Atraccion abismo = new Atraccion("Abismo de Helm", 5, 2, 15, TipoAtraccionEnum.PAISAJE);
+		Atraccion lothlorien = new Atraccion("Lothlórien", 35, 1, 30, TipoAtraccionEnum.DEGUSTACION);
+		Atraccion erebor = new Atraccion("Erebor", 12, 3, 32, TipoAtraccionEnum.PAISAJE);
+		Atraccion bosque = new Atraccion("Bosque Negro", 3, 4, 12, TipoAtraccionEnum.AVENTURA);
 		
+		ArrayList<Atraccion> atraccion1 = new ArrayList<>();
+		atraccion1.add(bosque);
+		atraccion1.add(mordor);
+		
+		PromocionPorcentual PromocionPorcentual = new PromocionPorcentual("Pack aventura", TipoAtraccionEnum.AVENTURA, atraccion1, 20);
+		System.out.println(PromocionPorcentual.getMontoPromo());
+		
+		ArrayList<Atraccion> atraccion2 = new ArrayList<>();
+		atraccion2.add(lothlorien);
+		atraccion2.add(comarca);
+		
+		PromocionAbsoluta PromocionAbsoluta = new PromocionAbsoluta("Pack degustación", TipoAtraccionEnum.DEGUSTACION, atraccion2);
+		System.out.println(PromocionAbsoluta.getMontoPromo());
+		
+		ArrayList<Atraccion> atraccion3 = new ArrayList<>();
+		atraccion3.add(minas);
+		atraccion3.add(abismo);
+		atraccion3.add(erebor);
+		
+		PromocionAxB PromocionAxB = new PromocionAxB("Pack paisajes", TipoAtraccionEnum.PAISAJE, atraccion3);
+		System.out.println(PromocionAxB.getMontoPromo());
+		
+		
+		
+//		Scanner sc = new Scanner(System.in);
+//		boolean salir = false;
+//		int opcion;
+//		System.out.println("¡Bienvenido/a a Tierra Media!");
+//		System.out.println("Ingresar nombre completo:");
+//    	String nombre =sc.nextLine();
+//        System.out.println("Ingresar presupuesto:");
+//        int presupuesto =sc.nextInt();
+//        System.out.println("Ingresar tiempo disponible:");
+//        double tiempoDisponible =sc.nextDouble();
+//        System.out.println("Ingresar preferencia:");
+//        System.out.println("1."+TipoAtraccionEnum.AVENTURA);
+//        System.out.println("2."+TipoAtraccionEnum.DEGUSTACION);
+//        System.out.println("3."+TipoAtraccionEnum.PAISAJE);
+//        TipoAtraccionEnum tipoAtraccion=TipoAtraccionEnum.AVENTURA;
+//            switch(sc.nextInt()) {
+//            case 1:
+//            	 tipoAtraccion= TipoAtraccionEnum.AVENTURA;
+//            	break;
+//            case 2:
+//            	tipoAtraccion = TipoAtraccionEnum.DEGUSTACION;
+//            	break;
+//            case 3:
+//            	tipoAtraccion = TipoAtraccionEnum.PAISAJE;
+//            	break;
+//        	default:
+//        		sc.close();
+//            }
+//            
+//        Usuario usuario = new Usuario(nombre,presupuesto,tiempoDisponible,tipoAtraccion);
+//        System.out.println(usuario);
+//		
 		
 		
 		

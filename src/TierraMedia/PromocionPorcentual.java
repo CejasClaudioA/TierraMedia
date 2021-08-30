@@ -1,16 +1,18 @@
 package TierraMedia;
 
-public class PromocionPorcentual extends Promocion{
+import java.util.ArrayList;
 
-	public PromocionPorcentual(String nombre, TipoAtraccionEnum tipo) {
-		super(nombre, tipo);
-		// TODO Auto-generated constructor stub
+public class PromocionPorcentual extends Promocion{
+	private int descuento;
+	
+	public PromocionPorcentual(String nombre, TipoAtraccionEnum tipo, ArrayList<Atraccion> atraccion, int descuento) {
+		super(nombre, tipo, atraccion);
+		this.descuento = descuento;
 	}
 
 	@Override
 	public double getMontoPromo() {
-		// TODO Auto-generated method stub
-		return 0;
+		return getCosto() - (getCosto()*this.descuento)/100;
 	}
 
 }
