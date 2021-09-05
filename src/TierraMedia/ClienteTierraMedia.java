@@ -23,14 +23,14 @@ public class ClienteTierraMedia {
 		atraccion1.add(mordor);
 		
 		PromocionPorcentual PromocionPorcentual = new PromocionPorcentual("Pack aventura", TipoAtraccionEnum.AVENTURA, atraccion1, 20);
-		System.out.println(PromocionPorcentual.getMontoPromo());
+		System.out.println(PromocionPorcentual.getMonto());
 		
 		ArrayList<Atraccion> atraccion2 = new ArrayList<>();
 		atraccion2.add(lothlorien);
 		atraccion2.add(comarca);
 		
 		PromocionAbsoluta PromocionAbsoluta = new PromocionAbsoluta("Pack degustación", TipoAtraccionEnum.DEGUSTACION, atraccion2);
-		System.out.println(PromocionAbsoluta.getMontoPromo());
+		System.out.println(PromocionAbsoluta.getMonto());
 		
 		ArrayList<Atraccion> atraccion3 = new ArrayList<>();
 		atraccion3.add(minas);
@@ -38,7 +38,7 @@ public class ClienteTierraMedia {
 		atraccion3.add(erebor);
 		
 		PromocionAxB PromocionAxB = new PromocionAxB("Pack paisajes", TipoAtraccionEnum.PAISAJE, atraccion3);
-		System.out.println(PromocionAxB.getMontoPromo());
+		System.out.println(PromocionAxB.getMonto());
 		
 		ArrayList<Promocion> promociones = new ArrayList<>(); 
 		promociones.add(PromocionPorcentual);
@@ -48,7 +48,8 @@ public class ClienteTierraMedia {
 		System.out.println(promociones);
 		
 		
-		
+		Sistema Sistema = new Sistema();
+		System.out.println(Sistema.menu());
 		
 //		Scanner sc = new Scanner(System.in);
 //		boolean salir = false;

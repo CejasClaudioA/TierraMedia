@@ -30,6 +30,9 @@ public class Usuario {
 
 	public void setPresupuesto(int presupuesto) {
 		this.presupuesto = presupuesto;
+		if(this.presupuesto < 0) {
+			this.presupuesto = 0;
+		}
 	}
 
 	public double getTiempoDisponible() {
@@ -38,6 +41,9 @@ public class Usuario {
 
 	public void setTiempoDisponible(double tiempoDisponible) {
 		this.tiempoDisponible = tiempoDisponible;
+		if(this.tiempoDisponible < 0) {
+			this.tiempoDisponible = 0;
+		}
 	}
 
 	public TipoAtraccionEnum getPreferenciaAtraccion() {
