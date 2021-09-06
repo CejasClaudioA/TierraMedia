@@ -17,7 +17,7 @@ public class ClienteTierraMedia {
 		Atraccion abismo = new Atraccion("Abismo de Helm", 5, 2, 15, TipoAtraccionEnum.PAISAJE);
 		Atraccion lothlorien = new Atraccion("Lothlórien", 35, 1, 30, TipoAtraccionEnum.DEGUSTACION);
 		Atraccion erebor = new Atraccion("Erebor", 12, 3, 32, TipoAtraccionEnum.PAISAJE);
-		Atraccion bosque = new Atraccion("Bosque Negro", 3, 4, 12, TipoAtraccionEnum.AVENTURA);
+		Atraccion bosque = new Atraccion("Bosque Negro", 3, 4, 1, TipoAtraccionEnum.AVENTURA);
 		
 		ArrayList<Atraccion> atraccion1 = new ArrayList<>();
 		atraccion1.add(bosque);

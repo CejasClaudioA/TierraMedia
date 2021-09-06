@@ -104,6 +104,8 @@ public class Sistema {
 			usuario.setPromociones(promocionesAux.get(v));
 			usuario.setPresupuesto(usuario.getPresupuesto() - promocionesAux.get(v).getMonto());
 			usuario.setTiempoDisponible(usuario.getTiempoDisponible() - promocionesAux.get(v).getTiempo());
+			actualizarPromocion(promocionesAux.get(v));
+			actualizarUsuario(usuario, promocionesAux.get(v));
 			promocionesAux.remove(v);
 		}
 		return usuario;
