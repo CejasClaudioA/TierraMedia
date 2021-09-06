@@ -11,7 +11,7 @@ public class PromocionPorcentual extends Promocion{
 		this.descuento = descuento;
 		this.montoPromo = getMontoPromo();
 	}
-	
+	@Override
 	public double getMonto() {
 		return this.montoPromo;
 	}

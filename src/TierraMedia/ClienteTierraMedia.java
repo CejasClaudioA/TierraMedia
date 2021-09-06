@@ -1,5 +1,6 @@
 package TierraMedia;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.InputMismatchException;
@@ -7,7 +8,7 @@ import java.util.Scanner;
 
 public class ClienteTierraMedia {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		
 		Atraccion moria = new Atraccion("Moria", 10, 2, 6, TipoAtraccionEnum.AVENTURA);
 		Atraccion minas = new Atraccion("Minas Tirith", 5, 2.5, 25, TipoAtraccionEnum.PAISAJE);
@@ -23,14 +24,13 @@ public class ClienteTierraMedia {
 		atraccion1.add(mordor);
 		
 		PromocionPorcentual PromocionPorcentual = new PromocionPorcentual("Pack aventura", TipoAtraccionEnum.AVENTURA, atraccion1, 20);
-		System.out.println(PromocionPorcentual.getMonto());
+
 		
 		ArrayList<Atraccion> atraccion2 = new ArrayList<>();
 		atraccion2.add(lothlorien);
 		atraccion2.add(comarca);
 		
 		PromocionAbsoluta PromocionAbsoluta = new PromocionAbsoluta("Pack degustación", TipoAtraccionEnum.DEGUSTACION, atraccion2);
-		System.out.println(PromocionAbsoluta.getMonto());
 		
 		ArrayList<Atraccion> atraccion3 = new ArrayList<>();
 		atraccion3.add(minas);
@@ -38,18 +38,27 @@ public class ClienteTierraMedia {
 		atraccion3.add(erebor);
 		
 		PromocionAxB PromocionAxB = new PromocionAxB("Pack paisajes", TipoAtraccionEnum.PAISAJE, atraccion3);
-		System.out.println(PromocionAxB.getMonto());
+
 		
 		ArrayList<Promocion> promociones = new ArrayList<>(); 
 		promociones.add(PromocionPorcentual);
 		promociones.add(PromocionAbsoluta);
 		promociones.add(PromocionAxB);
 		Collections.sort(promociones);
-		System.out.println(promociones);
 		
+		Usuario eowyn= new Usuario("Eowyn",100,80,TipoAtraccionEnum.AVENTURA);
+		Usuario gandalf= new Usuario("Gandalf",100,50,TipoAtraccionEnum.PAISAJE);
+		Usuario sam= new Usuario("Sam",72,16,TipoAtraccionEnum.DEGUSTACION);
+		Usuario galadriel= new Usuario("Galadriel",120,100,TipoAtraccionEnum.PAISAJE);
 		
-		Sistema Sistema = new Sistema();
-		System.out.println(Sistema.menu());
+		ArrayList<Usuario> usuarios = new ArrayList<>();
+		usuarios.add(sam);
+		usuarios.add(galadriel);
+		usuarios.add(eowyn);
+		usuarios.add(gandalf);
+		
+		Sistema sistema = new Sistema(usuarios, promociones);
+		sistema.probarSistema();
 		
 //		Scanner sc = new Scanner(System.in);
 //		boolean salir = false;

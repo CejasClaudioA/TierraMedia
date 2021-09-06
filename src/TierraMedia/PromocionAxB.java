@@ -10,6 +10,7 @@ public class PromocionAxB extends Promocion{
 		this.montoPromo = getMontoPromo();
 	}
 	
+	@Override
 	public double getMonto() {
 		return this.montoPromo;
 	}

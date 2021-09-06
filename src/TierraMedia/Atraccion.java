@@ -7,10 +7,6 @@ public class Atraccion {
 	private int cupo;
 	private TipoAtraccionEnum tipoAtraccion;
 	
-	public Atraccion() {
-		
-	}
-	
 	public Atraccion(String nombre, int costoDeVisita, double tiempo, int cupo, TipoAtraccionEnum tipoAtraccion) {
 		this.nombre=nombre;
 		this.costoDeVisita = costoDeVisita;
@@ -54,6 +50,9 @@ public class Atraccion {
 
 	public void setCupo(int cupo) {
 		this.cupo = cupo;
+		if (this.cupo < 0) {
+			this.cupo = 0;
+		}
 	}
 
 
@@ -68,18 +67,8 @@ public class Atraccion {
 
 	@Override
 	public String toString() {
-		return "Nombre atraccion: " + nombre + ", costoDeVisita: $" + costoDeVisita + ", tiempo: " + tiempo + ", cupo:"
-				+ cupo + ", tipoAtraccion:" + tipoAtraccion;
+		return "Nombre atraccion: " + nombre + " | Costo de visita: $" + costoDeVisita + " | Tiempo: " + tiempo + " | Cupos disponibles:"
+				+ cupo + " | Tipo de atraccion:" + tipoAtraccion + "\n";
 	}
-	
-	
-	public void agregarAtraccion() {
-		
-	}
-
-
-	
-	
-	
 	
 }
