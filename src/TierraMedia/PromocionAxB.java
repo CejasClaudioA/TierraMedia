@@ -1,16 +1,24 @@
 package TierraMedia;
 
-public class PromocionAxB extends Promocion{
+import java.util.ArrayList;
 
-	public PromocionAxB(String nombre, TipoAtraccionEnum tipo) {
-		super(nombre, tipo);
-		// TODO Auto-generated constructor stub
+public class PromocionAxB extends Promocion{
+	protected double montoPromo;
+	
+	public PromocionAxB(String nombre, TipoAtraccionEnum tipo, ArrayList<Atraccion> atraccion) {
+		super(nombre, tipo, atraccion);
+		this.montoPromo = getMontoPromo();
+	}
+	
+	@Override
+	public double getMonto() {
+		return this.montoPromo;
 	}
 
 	@Override
 	public double getMontoPromo() {
-		// TODO Auto-generated method stub
-		return 0;
+		return getCosto() - this.atraccion.get(this.atraccion.size()-1).getCostoDeVisita();
 	}
+
 
 }

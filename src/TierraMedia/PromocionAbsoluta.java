@@ -1,16 +1,23 @@
 package TierraMedia;
 
-public class PromocionAbsoluta extends Promocion{
+import java.util.ArrayList;
 
-	public PromocionAbsoluta(String nombre, TipoAtraccionEnum tipo) {
-		super(nombre, tipo);
-		// TODO Auto-generated constructor stub
+public class PromocionAbsoluta extends Promocion{
+	protected double montoPromo;
+	
+	public PromocionAbsoluta(String nombre, TipoAtraccionEnum tipo, ArrayList<Atraccion> atraccion) {
+		super(nombre, tipo, atraccion);
+		this.montoPromo = getMontoPromo();
+	}
+	
+	@Override
+	public double getMonto() {
+		return this.montoPromo;
 	}
 
 	@Override
 	public double getMontoPromo() {
-		// TODO Auto-generated method stub
-		return 0;
+		return getCosto() - this.atraccion.size();
 	}
 	
 	

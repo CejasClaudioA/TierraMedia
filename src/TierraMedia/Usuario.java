@@ -4,7 +4,7 @@ import java.util.*;
 
 public class Usuario {
 	private String nombre;
-	private int presupuesto;
+	private double presupuesto;
 	private double tiempoDisponible;
 	private TipoAtraccionEnum preferenciaAtraccion;
 	private List<Promocion> promociones = new ArrayList<>();
@@ -24,12 +24,15 @@ public class Usuario {
 		this.nombre = nombre;
 	}
 
-	public int getPresupuesto() {
+	public double getPresupuesto() {
 		return presupuesto;
 	}
 
-	public void setPresupuesto(int presupuesto) {
-		this.presupuesto = presupuesto;
+	public void setPresupuesto(double d) {
+		this.presupuesto = d;
+		if(this.presupuesto < 0) {
+			this.presupuesto = 0;
+		}
 	}
 
 	public double getTiempoDisponible() {
@@ -38,6 +41,9 @@ public class Usuario {
 
 	public void setTiempoDisponible(double tiempoDisponible) {
 		this.tiempoDisponible = tiempoDisponible;
+		if(this.tiempoDisponible < 0) {
+			this.tiempoDisponible = 0;
+		}
 	}
 
 	public TipoAtraccionEnum getPreferenciaAtraccion() {
@@ -47,12 +53,51 @@ public class Usuario {
 	public void setPreferenciaAtraccion(TipoAtraccionEnum preferenciaAtraccion) {
 		this.preferenciaAtraccion = preferenciaAtraccion;
 	}
+	
+	public void setPromociones(Promocion promocion) {
+		this.promociones.add(promocion);
+	}
+
+	
+	public List<Promocion> getPromociones() {
+		return promociones;
+	}
+	
+	public String getTotalesPromociones() {
+		double montoTotal = 0;
+		double tiempoTotal = 0;
+		for (int i = 0; i < promociones.size(); i++) {
+			montoTotal += promociones.get(i).getMonto();
+			tiempoTotal += promociones.get(i).getTiempo();
+		}
+		
+		return "Costo Total: $" + montoTotal + " | " + " Tiempo Total: " + tiempoTotal;
+	}
+	
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(nombre);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Usuario other = (Usuario) obj;
+		return Objects.equals(nombre, other.nombre);
+	}
 
 	@Override
 	public String toString() {
-		return "Nombre usuario: " + nombre + ", presupuesto: $" + presupuesto + ", tiempoDisponible: " + tiempoDisponible
-				+ ", preferenciaAtraccion:" + preferenciaAtraccion;
-	}	
+		return "Usuario: "  + nombre + " | Su Presupuesto: " + presupuesto + " | Su Tiempo Disponible: " + tiempoDisponible
+				+ " | Su tipo Atraccion Preferida: " + preferenciaAtraccion;
+	}
+	
 	
 	
 }
