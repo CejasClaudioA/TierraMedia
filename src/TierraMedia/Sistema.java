@@ -14,7 +14,7 @@ public class Sistema {
 	private ArrayList<Usuario> usuarios;
 	private ArrayList<Atraccion> atracciones;
 	private ArrayList<Promocion> promociones;
-
+	
 	public Sistema() throws IOException {
 		this.usuarios = cargarUsuarios(); 
 		this.atracciones = cargarAtracciones(); 
@@ -34,6 +34,7 @@ public class Sistema {
 
 	public ArrayList<Usuario> cargarUsuarios() throws IOException {
 		FileReader  fr = new FileReader ("usuarios.txt");
+		@SuppressWarnings("resource")
 		BufferedReader br = new BufferedReader(fr);
         String linea = br.readLine();
 		ArrayList<Usuario> usuariosAux = new ArrayList<>();
@@ -53,6 +54,7 @@ public class Sistema {
 	
 	public ArrayList<Atraccion> cargarAtracciones() throws IOException {
 		FileReader  fr = new FileReader ("atracciones.txt");
+		@SuppressWarnings("resource")
 		BufferedReader br = new BufferedReader(fr);
         String linea = br.readLine();
         ArrayList<Atraccion> atraccionesAux = new ArrayList<>();
@@ -73,6 +75,7 @@ public class Sistema {
 	
 	public ArrayList<Promocion> cargarPromociones() throws IOException {
 		FileReader  fr = new FileReader ("promociones.txt");
+		@SuppressWarnings("resource")
 		BufferedReader br = new BufferedReader(fr);
         String linea = br.readLine();
 		ArrayList<Promocion> promocionesAux = new ArrayList<>();

@@ -1,8 +1,3 @@
-Moria
-10
-2
-6
-AVENTURA
 Minas Tirith
 5
 2.5
@@ -23,7 +18,7 @@ Abismo de Helm
 2
 15
 PAISAJE
-Lothlórien
+Lothlorien
 35
 1
 30
