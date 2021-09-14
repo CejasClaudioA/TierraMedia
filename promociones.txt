@@ -1,0 +1,12 @@
+Pack aventura
+AVENTURA
+PROMOCIONPORCENTUAL
+Bosque Negro|Mordor|20
+Pack degustacion
+DEGUSTACION
+PROMOCIONABSOLUTA
+Lothlórien|La Comarca
+Pack paisajes
+PAISAJE
+PROMOCIONAXB
+Minas Tirith|Abismo de Helm|Erebor
