@@ -23,21 +23,21 @@ public class ClienteTierraMedia {
 		atraccion1.add(bosque);
 		atraccion1.add(mordor);
 		
-		PromocionPorcentual PromocionPorcentual = new PromocionPorcentual("Pack aventura", TipoAtraccionEnum.AVENTURA, atraccion1, 20);
+		PromocionPorcentual PromocionPorcentual = new PromocionPorcentual("Pack aventura", TipoAtraccionEnum.AVENTURA, TipoPromocionEnum.PROMOCIONPORCENTUAL,atraccion1, 20);
 
 		
 		ArrayList<Atraccion> atraccion2 = new ArrayList<>();
 		atraccion2.add(lothlorien);
 		atraccion2.add(comarca);
 		
-		PromocionAbsoluta PromocionAbsoluta = new PromocionAbsoluta("Pack degustación", TipoAtraccionEnum.DEGUSTACION, atraccion2);
+		PromocionAbsoluta PromocionAbsoluta = new PromocionAbsoluta("Pack degustación", TipoAtraccionEnum.DEGUSTACION, TipoPromocionEnum.PROMOCIONABSOLUTA,atraccion2);
 		
 		ArrayList<Atraccion> atraccion3 = new ArrayList<>();
 		atraccion3.add(minas);
 		atraccion3.add(abismo);
 		atraccion3.add(erebor);
 		
-		PromocionAxB PromocionAxB = new PromocionAxB("Pack paisajes", TipoAtraccionEnum.PAISAJE, atraccion3);
+		PromocionAxB PromocionAxB = new PromocionAxB("Pack paisajes", TipoAtraccionEnum.PAISAJE, TipoPromocionEnum.PROMOCIONAXB, atraccion3);
 
 		
 		ArrayList<Promocion> promociones = new ArrayList<>(); 
@@ -57,7 +57,7 @@ public class ClienteTierraMedia {
 		usuarios.add(eowyn);
 		usuarios.add(gandalf);
 		
-		Sistema sistema = new Sistema(usuarios, promociones);
+		Sistema sistema = new Sistema();
 		sistema.probarSistema();
 		
 //		Scanner sc = new Scanner(System.in);

@@ -1,7 +1,9 @@
 package TierraMedia;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -10,11 +12,13 @@ import java.util.Scanner;
 
 public class Sistema {
 	private ArrayList<Usuario> usuarios;
+	private ArrayList<Atraccion> atracciones;
 	private ArrayList<Promocion> promociones;
 
-	// Al instanciar la clase Sistema automaticamente tomamos los datos del archivos
-	// de entrada con un constructor por defecto.
-	public Sistema() {
+	public Sistema() throws IOException {
+		this.usuarios = cargarUsuarios(); 
+		this.atracciones = cargarAtracciones(); 
+		this.promociones = cargarPromociones();
 	}
 
 	public Sistema(ArrayList<Usuario> usuarios, ArrayList<Promocion> promociones) {
@@ -22,6 +26,98 @@ public class Sistema {
 		this.usuarios = usuarios;
 		this.promociones = promociones;
 	}
+	
+	
+	public ArrayList<Promocion> getPromociones() {
+		return promociones;
+	}
+
+	public ArrayList<Usuario> cargarUsuarios() throws IOException {
+		FileReader  fr = new FileReader ("usuarios.txt");
+		BufferedReader br = new BufferedReader(fr);
+        String linea = br.readLine();
+		ArrayList<Usuario> usuariosAux = new ArrayList<>();
+        ArrayList<String> aux = new ArrayList<String>();
+        while((linea != null)){
+        	aux.add(linea);
+            linea = br.readLine();
+            if(aux.size() == 4) {
+            	double auxDouble1 = Double.parseDouble(aux.get(1));
+            	double auxDouble2 = Double.parseDouble(aux.get(2));
+            	usuariosAux.add(new Usuario(aux.get(0),auxDouble1, auxDouble2, TipoAtraccionEnum.valueOf(aux.get(3))));
+            	aux = new ArrayList<String>();
+            }
+        }
+        return usuariosAux;
+	}
+	
+	public ArrayList<Atraccion> cargarAtracciones() throws IOException {
+		FileReader  fr = new FileReader ("atracciones.txt");
+		BufferedReader br = new BufferedReader(fr);
+        String linea = br.readLine();
+        ArrayList<Atraccion> atraccionesAux = new ArrayList<>();
+        ArrayList<String> aux = new ArrayList<String>();
+        while((linea != null)){
+        	aux.add(linea);
+            linea = br.readLine();
+            if(aux.size() == 5) {
+            	double auxDouble1 = Double.parseDouble(aux.get(1));
+            	double auxDouble2 = Double.parseDouble(aux.get(2));
+            	int auxInteger = Integer.parseInt(aux.get(3)); 
+            	atraccionesAux.add(new Atraccion(aux.get(0), auxDouble1, auxDouble2, auxInteger, TipoAtraccionEnum.valueOf(aux.get(4))));
+            	aux = new ArrayList<String>();
+            }
+        }
+        return atraccionesAux;
+	}
+	
+	public ArrayList<Promocion> cargarPromociones() throws IOException {
+		FileReader  fr = new FileReader ("promociones.txt");
+		BufferedReader br = new BufferedReader(fr);
+        String linea = br.readLine();
+		ArrayList<Promocion> promocionesAux = new ArrayList<>();
+		ArrayList<String> aux = new ArrayList<String>();
+		String[] array;
+		while((linea != null)){
+        	aux.add(linea);
+            linea = br.readLine();
+            if(aux.size() == 4) {
+            	ArrayList<Atraccion> atraccionesAux = new ArrayList<>();
+            	switch(TipoPromocionEnum.valueOf(aux.get(2))) {
+            		case PROMOCIONPORCENTUAL:
+            			array = aux.get(3).split("\\|",-1);
+            			for (int i = 0; i < array.length - 1; i++) {
+                    		atraccionesAux.add(seleccionarAtraccion(array[i]));
+                		}
+            			int auxInteger = Integer.parseInt(array[array.length - 1]);
+            			Promocion PromocionPorcentual = new PromocionPorcentual(aux.get(0), TipoAtraccionEnum.valueOf(aux.get(1)), TipoPromocionEnum.valueOf(aux.get(2)), atraccionesAux, auxInteger);
+            			promocionesAux.add(PromocionPorcentual);
+            			break;
+            		case PROMOCIONABSOLUTA:
+            			array = aux.get(3).split("\\|",-1);
+            			for (int i = 0; i < array.length; i++) {
+                    		atraccionesAux.add(seleccionarAtraccion(array[i]));
+                		}
+            			Promocion PromocionAbsoluta = new PromocionAbsoluta(aux.get(0), TipoAtraccionEnum.valueOf(aux.get(1)), TipoPromocionEnum.valueOf(aux.get(2)), atraccionesAux);
+            			promocionesAux.add(PromocionAbsoluta);
+            			break;
+            		case PROMOCIONAXB:
+            			array = aux.get(3).split("\\|",-1);
+            			for (int i = 0; i < array.length; i++) {
+                    		atraccionesAux.add(seleccionarAtraccion(array[i]));
+                		}
+            			Promocion PromocionAxB = new PromocionAxB(aux.get(0), TipoAtraccionEnum.valueOf(aux.get(1)), TipoPromocionEnum.valueOf(aux.get(2)), atraccionesAux);
+            			promocionesAux.add(PromocionAxB);
+            			break;
+            			
+            	}
+            	atraccionesAux = new ArrayList<>();
+            	aux = new ArrayList<String>();
+            }
+        }
+		return promocionesAux;
+	}
+	
 
 	public void actualizarPromocion(Promocion promocion) {
 		for (int i = 0; i < promociones.size(); i++) {
@@ -38,9 +134,18 @@ public class Sistema {
 			}
 		}
 	}
+	
+	public Atraccion seleccionarAtraccion(String atraccion){
+		Atraccion aux = new Atraccion();
+		for (int i = 0; i < atracciones.size(); i++) {
+			if(atracciones.get(i).getNombre().equals(atraccion)) {
+				aux = atracciones.get(i);
+				break;
+			}
+		}
+		return aux;
+	}
 
-	// Se envia un usuario por parametros para seleccionar todas las promociones que
-	// coincidan con las preferencias del usuario.
 	public ArrayList<Promocion> seleccionarPromociones(Usuario usuario, ArrayList<Promocion> promociones) {
 		ArrayList<Promocion> promocionesAux = new ArrayList<>();
 		for (int i = 0; i < promociones.size(); i++) {
@@ -122,38 +227,15 @@ public class Sistema {
 				"C:/Users/Public/Documents/atracciones" + usuario.getNombre() + ".txt");
 
 		BufferedWriter bw = new BufferedWriter(new FileWriter(nombre_de_objeto_fichero));
-
+		bw.write("Nombre del Usuario: " + usuario.getNombre() + " | Su presupuesto: " + usuario.getPresupuesto() + " | Su tiempo disponible: " + usuario.getTiempoDisponible() + "\n" + "\n");
 		for (int i = 0; i < usuario.getPromociones().size(); i++) {
 			bw.write(usuario.getPromociones().get(i).getAtracciones());
 		}
 
 		bw.write(usuario.getTotalesPromociones());
 		bw.close();
-//        for (int i = 0; i < usuario.getPromociones().size(); i++) {
-//			
-//			bw.write(usuario.toString());
-//		}
-
-//		 int nombreFichero = (int) Math.floor(Math.random()*6+1);
-
-//		FileWriter fichero = new FileWriter("C:/Users/Public/Documents/atracciones"+nombreFichero+".txt");
-//		fichero.write(usuario.getPromociones().toString());
-//		for (int i = 0; i < usuario.getPromociones().size(); i++) {
-//			
-//			
-//		fichero.write(usuario.getPromociones().get(i).getMonto()+" es");
-//		}
-
-//		for (int i = 0; i < usuario.getPromociones().size(); i++) {
-//			
-//			fichero.write(usuario.toString());
-//		}
-
-//		fichero.close();
 	}
 
-	// Recorre la lista usuarios, les asigna las sugerencias y genera sus
-	// itinenarios, se utilizaria en el JUnit
 	public void probarSistema() throws IOException {
 		for (int i = 0; i < this.usuarios.size(); i++) {
 			System.out.println(this.usuarios.get(i).toString());

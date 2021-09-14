@@ -2,12 +2,16 @@ package TierraMedia;
 
 public class Atraccion {
 	private String nombre;
-	private int costoDeVisita;
+	private double costoDeVisita;
 	private double tiempo;
 	private int cupo;
 	private TipoAtraccionEnum tipoAtraccion;
 	
-	public Atraccion(String nombre, int costoDeVisita, double tiempo, int cupo, TipoAtraccionEnum tipoAtraccion) {
+	public Atraccion() {
+
+	}
+
+	public Atraccion(String nombre, double costoDeVisita, double tiempo, int cupo, TipoAtraccionEnum tipoAtraccion) {
 		this.nombre=nombre;
 		this.costoDeVisita = costoDeVisita;
 		this.tiempo = tiempo;
@@ -23,7 +27,7 @@ public class Atraccion {
 		this.nombre = nombre;
 	}
 
-	public int getCostoDeVisita() {
+	public double getCostoDeVisita() {
 		return costoDeVisita;
 	}
 
@@ -67,8 +71,8 @@ public class Atraccion {
 
 	@Override
 	public String toString() {
-		return "Nombre atraccion: " + nombre + " | Costo de visita: $" + costoDeVisita + " | Tiempo: " + tiempo + " | Cupos disponibles:"
-				+ cupo + " | Tipo de atraccion:" + tipoAtraccion + "\n";
+		return "Nombre atraccion: " + nombre + " | Costo de visita: $" + costoDeVisita + " | Tiempo: " + tiempo + "hs | Cupos disponibles:"
+				+ cupo + " | Tipo de atraccion: " + tipoAtraccion + "\n";
 	}
 	
 }
