@@ -1,0 +1,16 @@
+Sam
+72
+16
+DEGUSTACION
+Gandalf
+100
+50
+PAISAJE
+Eowyn
+100
+80
+AVENTURA
+Galadriel
+45
+100
+PAISAJE

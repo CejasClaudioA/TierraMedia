@@ -5,8 +5,8 @@ import java.util.ArrayList;
 public class PromocionAbsoluta extends Promocion{
 	protected double montoPromo;
 	
-	public PromocionAbsoluta(String nombre, TipoAtraccionEnum tipo, ArrayList<Atraccion> atraccion) {
-		super(nombre, tipo, atraccion);
+	public PromocionAbsoluta(String nombre, TipoAtraccionEnum tipo, TipoPromocionEnum tipoProm, ArrayList<Atraccion> atraccion) {
+		super(nombre, tipo, tipoProm, atraccion);
 		this.montoPromo = getMontoPromo();
 	}
 	

@@ -6,12 +6,14 @@ import java.util.Objects;
 public abstract class Promocion implements Comparable<Promocion> {
 	protected String nombre;
 	protected TipoAtraccionEnum tipo;
-	protected ArrayList<Atraccion> atraccion;
+	protected TipoPromocionEnum tipoProm;
 	protected double tiempoTotal;
+	protected ArrayList<Atraccion> atraccion;
 
-	public Promocion(String nombre, TipoAtraccionEnum tipo, ArrayList<Atraccion> atraccion) {
+	public Promocion(String nombre, TipoAtraccionEnum tipo, TipoPromocionEnum tipoProm,ArrayList<Atraccion> atraccion) {
 		this.nombre = nombre;
 		this.tipo = tipo;
+		this.tipoProm = tipoProm;
 		this.atraccion = atraccion;
 		this.tiempoTotal = getTiempoTotal();
 	}
