@@ -76,7 +76,7 @@ public class Sistema {
 			Scanner sc = new Scanner(System.in);
 			int v;
 			promocionesAux = seleccionarPromociones(usuario, promocionesAux);
-			System.out.println("Para elegir una sugerencia ingrese el número correspondiente:");
+			System.out.println("Para elegir una sugerencia ingrese el nÃºmero correspondiente:");
 			for (int j = 0; j < promocionesAux.size(); j++) {
 				System.out.println((j + 1) + "-" + promocionesAux.get(j).toString());
 			}
@@ -95,7 +95,7 @@ public class Sistema {
 			Scanner sc = new Scanner(System.in);
 			int v;
 			promocionesAux = seleccionarPromocionesAlternativas(usuario, promocionesAux);
-			System.out.println("Para elegir una sugerencia alternativa ingrese el número correspondiente:");
+			System.out.println("Para elegir una sugerencia alternativa ingrese el nÃºmero correspondiente:");
 			for (int j = 0; j < promocionesAux.size(); j++) {
 				System.out.println((j + 1) + "-" + promocionesAux.get(j).toString());
 			}
@@ -119,7 +119,7 @@ public class Sistema {
 
 	public void generarItinerario(Usuario usuario) throws IOException {
 		File nombre_de_objeto_fichero = new File(
-				"C:/Users/Public/Documents/atracciones" + usuario.getNombre() + ".txt");
+				usuario.getNombre() + ".txt");
 
 		BufferedWriter bw = new BufferedWriter(new FileWriter(nombre_de_objeto_fichero));
 
