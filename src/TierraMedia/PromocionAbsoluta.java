@@ -2,14 +2,15 @@ package TierraMedia;
 
 import java.util.ArrayList;
 
-public class PromocionAbsoluta extends Promocion{
+public class PromocionAbsoluta extends Promocion {
 	protected double montoPromo;
-	
-	public PromocionAbsoluta(String nombre, TipoAtraccionEnum tipo, TipoPromocionEnum tipoProm, ArrayList<Atraccion> atraccion) {
+
+	public PromocionAbsoluta(String nombre, TipoAtraccionEnum tipo, TipoPromocionEnum tipoProm,
+			ArrayList<Atraccion> atraccion) {
 		super(nombre, tipo, tipoProm, atraccion);
 		this.montoPromo = getMontoPromo();
 	}
-	
+
 	@Override
 	public double getMonto() {
 		return this.montoPromo;
@@ -19,6 +20,5 @@ public class PromocionAbsoluta extends Promocion{
 	public double getMontoPromo() {
 		return getCosto() - this.atraccion.size();
 	}
-	
-	
+
 }

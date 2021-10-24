@@ -1,23 +1,20 @@
 package TierraMedia;
 
 public enum TipoAtraccionEnum {
-	AVENTURA("Aventura"),
-    PAISAJE("Paisaje"),
-    DEGUSTACION("Degustación");
-    
-    
-    private String descripcion;
+	AVENTURA("Aventura"), PAISAJE("Paisaje"), DEGUSTACION("Degustación");
 
-    private TipoAtraccionEnum(String descripcion) {
-        this.descripcion = descripcion;
-    }
+	private String descripcion;
 
-    public String getDescripcion() {
-        return descripcion;
-    }
+	private TipoAtraccionEnum(String descripcion) {
+		this.descripcion = descripcion;
+	}
 
-    @Override
-    public String toString() {
-    	return  descripcion;
-    }
+	public String getDescripcion() {
+		return descripcion;
+	}
+
+	@Override
+	public String toString() {
+		return descripcion;
+	}
 }

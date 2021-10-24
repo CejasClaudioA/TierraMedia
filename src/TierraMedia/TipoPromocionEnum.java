@@ -1,23 +1,20 @@
 package TierraMedia;
 
 public enum TipoPromocionEnum {
-	PROMOCIONABSOLUTA("Promocion Absoluta"),
-	PROMOCIONPORCENTUAL("Promocion Porcentual"),
-	PROMOCIONAXB("Promocion AxB");
-    
-    
-    private String descripcion;
+	PROMOCIONABSOLUTA("Promocion Absoluta"), PROMOCIONPORCENTUAL("Promocion Porcentual"), PROMOCIONAXB("Promocion AxB");
 
-    private TipoPromocionEnum(String descripcion) {
-        this.descripcion = descripcion;
-    }
+	private String descripcion;
 
-    public String getDescripcion() {
-        return descripcion;
-    }
+	private TipoPromocionEnum(String descripcion) {
+		this.descripcion = descripcion;
+	}
 
-    @Override
-    public String toString() {
-    	return  descripcion;
-    }
+	public String getDescripcion() {
+		return descripcion;
+	}
+
+	@Override
+	public String toString() {
+		return descripcion;
+	}
 }

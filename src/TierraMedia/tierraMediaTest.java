@@ -1,18 +1,17 @@
 package TierraMedia;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import java.io.IOException;
+import java.sql.SQLException;
 
 import org.junit.jupiter.api.Test;
 
-@SuppressWarnings("unused")
+
 class tierraMediaTest {
 
 	@Test
-	void testSistema() throws IOException {
+	void testSistema() throws IOException, SQLException {
 		Sistema sistema = new Sistema();
-		sistema.probarSistema();
+		sistema.menu();
 	}
 
 }
