@@ -7,13 +7,13 @@ public class Atraccion {
 	private double costoDeVisita;
 	private double tiempo;
 	private int cupo;
-	private TipoAtraccionEnum tipoAtraccion;
+	private String tipoAtraccion;
 
 	public Atraccion() {
 
 	}
 
-	public Atraccion(String nombre, double costoDeVisita, double tiempo, int cupo, TipoAtraccionEnum tipoAtraccion) {
+	public Atraccion(String nombre, double costoDeVisita, double tiempo, int cupo, String tipoAtraccion) {
 		this.nombre = nombre;
 		this.costoDeVisita = costoDeVisita;
 		this.tiempo = tiempo;
@@ -57,11 +57,11 @@ public class Atraccion {
 		}
 	}
 
-	public TipoAtraccionEnum getTipoAtraccion() {
+	public String getTipoAtraccion() {
 		return tipoAtraccion;
 	}
 
-	public void setTipoAtraccion(TipoAtraccionEnum tipoAtraccion) {
+	public void setTipoAtraccion(String tipoAtraccion) {
 		this.tipoAtraccion = tipoAtraccion;
 	}
 

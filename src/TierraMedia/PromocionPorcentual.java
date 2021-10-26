@@ -6,7 +6,7 @@ public class PromocionPorcentual extends Promocion {
 	private int descuento;
 	protected double montoPromo;
 
-	public PromocionPorcentual(String nombre, TipoAtraccionEnum tipo, TipoPromocionEnum tipoProm,
+	public PromocionPorcentual(String nombre, String tipo, TipoPromocionEnum tipoProm,
 			ArrayList<Atraccion> atraccion, int descuento) {
 		super(nombre, tipo, tipoProm, atraccion);
 		this.descuento = descuento;

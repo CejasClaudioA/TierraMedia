@@ -17,7 +17,7 @@ public class Sistema {
 	private ArrayList<Promocion> promociones;
 
 	public Sistema() throws IOException, SQLException {
-		this.promociones = cargarPromocionesDao();
+		this.promociones = cargarPromocionesDAO();
 		this.usuarios = cargarUsuariosDAO();
 	}
 
@@ -25,6 +25,8 @@ public class Sistema {
 		Connection connection = ConnectionProvider.getConnection();
 		PreparedStatement preparedStatement = connection.prepareStatement("delete from Atracciones");
 		preparedStatement.executeUpdate();
+		preparedStatement.close();
+		
 		preparedStatement = connection
 				.prepareStatement("INSERT INTO Atracciones(nombre, costoDeVisita, tiempo, cupo, tipoAtraccion) VALUES  "
 						+ "('Minas Tirith', 5.0, 2.5, 10, 'PAISAJE'), ('La Comarca', 5.0, 2.5, 10, 'PAISAJE'), "
@@ -34,10 +36,13 @@ public class Sistema {
 						+ "('Monte del Destino', 40.0, 7.0, 2, 'AVENTURA'), "
 						+ "('Rivendel', 16.5, 1.5, 10, 'PAISAJE'), " + "('Moria', 11.0, 2.5, 6, 'AVENTURA'), "
 						+ "('Numeror', 4.5, 3.0, 23, 'PAISAJE'), " + "('Fangorn', 5.5, 6.0, 2, 'DEGUSTACION');");
-
 		preparedStatement.executeUpdate();
+		preparedStatement.close();
+		
 		preparedStatement = connection.prepareStatement("delete from Promociones");
 		preparedStatement.executeUpdate();
+		preparedStatement.close();
+		
 		preparedStatement = connection
 				.prepareStatement("INSERT INTO Promociones(nombre, tipo, tipoProm, atraccion, descuento) VALUES "
 						+ "('Pack Aventura V1', 'AVENTURA', 'PROMOCIONPORCENTUAL', 'Bosque Negro|Mordor', 20), "
@@ -46,11 +51,13 @@ public class Sistema {
 						+ "('Pack Aventura V2', 'AVENTURA', 'PROMOCIONABSOLUTA', 'Monte del Destino|Moria', NULL), "
 						+ "('Pack Paisaje V2', 'PAISAJE', 'PROMOCIONAXB', 'Rivendel|Numeror', NULL), "
 						+ "('Pack Degustacion V2', 'DEGUSTACION', 'PROMOCIONPORCENTUAL', 'Lothlorien|Fangorn', 35);");
-
 		preparedStatement.executeUpdate();
+		preparedStatement.close();
 
 		preparedStatement = connection.prepareStatement("delete from Usuarios");
 		preparedStatement.executeUpdate();
+		preparedStatement.close();
+		
 		preparedStatement = connection.prepareStatement(
 				"INSERT INTO Usuarios(nombre, presupuesto, tiempoDisponible, preferenciaAtraccion) VALUES "
 						+ "('Sam', 36.5, 20.0, 'DEGUSTACION'), " + "('Gandalf', 100.0, 50.0, 'PAISAJE'), "
@@ -58,8 +65,13 @@ public class Sistema {
 						+ "('Frodo', 65.0, 56.5, 'AVENTURA'), " + "('Aragorn', 25.0, 200.0, 'DEGUSTACION'), "
 						+ "('Saruman', 49.5, 33.5, 'PAISAJE');");
 		preparedStatement.executeUpdate();
+		preparedStatement.close();
 		
-		this.promociones = cargarPromocionesDao();
+		preparedStatement = connection.prepareStatement("delete from Itinerarios");
+		preparedStatement.executeUpdate();
+		preparedStatement.close();
+		
+		this.promociones = cargarPromocionesDAO();
 		this.usuarios = cargarUsuariosDAO();
 	}
 
@@ -70,11 +82,11 @@ public class Sistema {
 		Connection connection = ConnectionProvider.getConnection();
 		PreparedStatement preparedStatement = connection.prepareStatement("select * from Usuarios");
 		ResultSet resultSet = preparedStatement.executeQuery();
-
+		
 		while (resultSet.next()) {
 			Usuario Usuario = new Usuario(resultSet.getString("nombre"), resultSet.getDouble("presupuesto"),
 					resultSet.getDouble("tiempoDisponible"),
-					TipoAtraccionEnum.valueOf(resultSet.getString("preferenciaAtraccion")));
+					getTipoAtraccion(resultSet.getString("preferenciaAtraccion")));
 			if (resultSet.getString("promociones") != null) {
 				String[] array = resultSet.getString("promociones").split("\\|");
 				for (int i = 0; i < array.length; i++) {
@@ -88,6 +100,7 @@ public class Sistema {
 
 			usuariosAux.add(Usuario);
 		}
+		preparedStatement.close();
 		return usuariosAux;
 	}
 
@@ -100,12 +113,13 @@ public class Sistema {
 		while (resultSet.next()) {
 			atraccionesAux.add(new Atraccion(resultSet.getString("nombre"), resultSet.getDouble("costoDeVisita"),
 					resultSet.getDouble("tiempo"), resultSet.getInt("cupo"),
-					TipoAtraccionEnum.valueOf(resultSet.getString("tipoAtraccion"))));
+					getTipoAtraccion(resultSet.getString("tipoAtraccion"))));
 		}
+		preparedStatement.close();
 		return atraccionesAux;
 	}
 
-	public ArrayList<Promocion> cargarPromocionesDao() throws SQLException {
+	public ArrayList<Promocion> cargarPromocionesDAO() throws SQLException {
 		Connection connection = ConnectionProvider.getConnection();
 		PreparedStatement preparedStatement = connection.prepareStatement("select * from Promociones");
 		ResultSet resultSet = preparedStatement.executeQuery();
@@ -113,7 +127,30 @@ public class Sistema {
 		while (resultSet.next()) {
 			promocionesAux.add(toPromocion(resultSet));
 		}
+		preparedStatement.close();
 		return promocionesAux;
+	}
+	
+	public ArrayList<String> cargarTipoAtraccionDAO() throws SQLException{
+		ArrayList<String> tipoAtraccionesAux = new ArrayList<>();
+		Connection connection = ConnectionProvider.getConnection();
+		PreparedStatement preparedStatement = connection.prepareStatement("select * from TipoAtracciones");
+		ResultSet resultSet = preparedStatement.executeQuery();
+		while (resultSet.next()) {
+			tipoAtraccionesAux.add(resultSet.getString("nombre"));
+		}
+		return tipoAtraccionesAux;
+	}
+	
+	public String getTipoAtraccion(String tipoAtraccion) throws SQLException{
+		Connection connection = ConnectionProvider.getConnection();
+		PreparedStatement preparedStatement = connection
+				.prepareStatement("select * from TipoAtracciones WHERE nombre LIKE " + "'" + tipoAtraccion + "%';");
+		ResultSet resultSet = preparedStatement.executeQuery();
+		if(resultSet.getString("nombre") == null) {
+			return "n/a";
+		}
+		return resultSet.getString("nombre");	
 	}
 
 	public Atraccion seleccionarAtraccion(String atraccion) throws SQLException {
@@ -123,7 +160,8 @@ public class Sistema {
 		ResultSet resultSet = preparedStatement.executeQuery();
 		return new Atraccion(resultSet.getString("nombre"), resultSet.getDouble("costoDeVisita"),
 				resultSet.getDouble("tiempo"), resultSet.getInt("cupo"),
-				TipoAtraccionEnum.valueOf(resultSet.getString("tipoAtraccion")));
+				getTipoAtraccion(resultSet.getString("tipoAtraccion")));
+		
 	}
 
 	public void actualizarPromocion(Promocion promocion) throws SQLException {
@@ -137,7 +175,8 @@ public class Sistema {
 			preparedStatement.executeUpdate();
 			cargarAtraccionesDAO();
 		}
-		cargarPromocionesDao();
+		preparedStatement.close();
+		cargarPromocionesDAO();
 	}
 
 	public Usuario actualizarUsuario(Usuario usuario, Promocion promocion, double Presupuesto, double tiempoDisponible)
@@ -153,6 +192,7 @@ public class Sistema {
 		preparedStatement.setString(3, usuario.getPromocionesDAO());
 		preparedStatement.setString(4, usuario.getNombre());
 		preparedStatement.executeUpdate();
+		preparedStatement.close();
 		cargarUsuariosDAO();
 		return usuario;
 	}
@@ -191,8 +231,8 @@ public class Sistema {
 		} else {
 			promocionesAux = construirListaPromociones(usuario, this.promociones);
 			while (promocionesAux.size() > 0) {
-				System.out.println("\t" + "Presupuesto restante: " + usuario.getPresupuesto()
-						+ "| Tiempo disponible restante: " + usuario.getTiempoDisponible() + "\n");
+				System.out.println("\t" + "Presupuesto restante: $" + usuario.getPresupuesto()
+						+ "| Tiempo disponible restante: " + usuario.getTiempoDisponible() + "hs" +"\n");
 				System.out.println(
 						"\t" + "Seleccione una promocion con el numero correspondiente o escriba x para salir: ");
 				for (int i = 0; i < promocionesAux.size(); i++) {
@@ -223,10 +263,10 @@ public class Sistema {
 		} else {
 			promocionesAux = construirListaPromocionesAlternas(usuario, this.promociones);
 			while (promocionesAux.size() > 0) {
-				System.out.println("\t" + "Presupuesto restante: " + usuario.getPresupuesto()
-						+ "| Tiempo disponible restante: " + usuario.getTiempoDisponible());
+				System.out.println("\t" + "Presupuesto restante: $" + usuario.getPresupuesto()
+						+ "| Tiempo disponible restante: " + usuario.getTiempoDisponible() + "hs" + "\n");
 				System.out.println("\t"
-						+ "Seleccione una promocion alterna con el numero correspondiente o escriba x para salir: ");
+						+ "Seleccione una promocion alternativa con el numero correspondiente o escriba x para salir: ");
 				for (int i = 0; i < promocionesAux.size(); i++) {
 					System.out.println("\t" + (i + 1) + ". " + promocionesAux.get(i));
 				}
@@ -265,19 +305,19 @@ public class Sistema {
 		switch (TipoPromocionEnum.valueOf(resultSet.getString("tipoProm"))) {
 		case PROMOCIONPORCENTUAL:
 			Promocion = new PromocionPorcentual(resultSet.getString("nombre"),
-					TipoAtraccionEnum.valueOf(resultSet.getString("tipo")),
+					getTipoAtraccion(resultSet.getString("tipo")),
 					TipoPromocionEnum.valueOf(resultSet.getString("tipoProm")), atraccionesAux,
 					resultSet.getInt("descuento"));
 
 			break;
 		case PROMOCIONABSOLUTA:
 			Promocion = new PromocionAbsoluta(resultSet.getString("nombre"),
-					TipoAtraccionEnum.valueOf(resultSet.getString("tipo")),
+					getTipoAtraccion(resultSet.getString("tipo")),
 					TipoPromocionEnum.valueOf(resultSet.getString("tipoProm")), atraccionesAux);
 			break;
 		case PROMOCIONAXB:
 			Promocion = new PromocionAxB(resultSet.getString("nombre"),
-					TipoAtraccionEnum.valueOf(resultSet.getString("tipo")),
+					getTipoAtraccion(resultSet.getString("tipo")),
 					TipoPromocionEnum.valueOf(resultSet.getString("tipoProm")), atraccionesAux);
 		}
 		return Promocion;
@@ -285,7 +325,7 @@ public class Sistema {
 
 	public void menu() throws SQLException, IOException {
 		System.out.println("\n" + "TIERRA MEDIA" + "\n");
-		System.out.println("Los itinerarios se generaran en el directorio: C:\\Users\\Public\\Documents" + "\n");
+		System.out.println("Los itinerarios se generaran en formato txt en el directorio: C:\\Users\\Public\\Documents" + "\n");
 		System.out.println("Ingrese a un usuario con el numero correspondiente: " + "\n" + "----------------------");
 		@SuppressWarnings("resource")
 		Scanner sc = new Scanner(System.in);
@@ -313,11 +353,27 @@ public class Sistema {
 		}
 		System.out.println(this.usuarios.get(aux) + "\n");
 		this.usuarios.set(aux, seleccionarPromocionDAO(this.usuarios.get(aux)));
-		generarItinerario(this.usuarios.get(aux));
+		generarItinerarioDAO(this.usuarios.get(aux));
+		generarItinerarioTXT(this.usuarios.get(aux));
 		menu();
 	}
 
-	public void generarItinerario(Usuario usuario) throws IOException {
+	public void generarItinerarioDAO(Usuario usuario) throws IOException, SQLException {
+		String Atracciones = "";
+		
+		for (int i = 0; i < usuario.getPromociones().size(); i++) {
+			Atracciones += usuario.getPromociones().get(i).getAtraccionesItinenario();
+		}
+		Connection connection = ConnectionProvider.getConnection();
+		PreparedStatement preparedStatement = connection
+				.prepareStatement("REPLACE INTO Itinerarios (nombre, atraccionesIt, costo, tiempo) VALUES ('"
+						+ usuario.getNombre() + "', '" + Atracciones + "', " + usuario.getCostoTotalPromociones() + ", "
+						+ usuario.getTiempoTotalPromociones() + ");");
+		preparedStatement.executeUpdate();
+		preparedStatement.close();
+	}
+	
+	public void generarItinerarioTXT(Usuario usuario) throws IOException {
 		File nombre_de_objeto_fichero = new File(
 				"C:/Users/Public/Documents/atracciones" + usuario.getNombre() + ".txt");
 

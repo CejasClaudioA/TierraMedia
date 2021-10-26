@@ -6,10 +6,10 @@ public class Usuario {
 	private String nombre;
 	private double presupuesto;
 	private double tiempoDisponible;
-	private TipoAtraccionEnum preferenciaAtraccion;
+	private String preferenciaAtraccion;
 	private List<Promocion> promociones = new ArrayList<>();
 
-	public Usuario(String nombre, double presupuesto, double tiempoDisponible, TipoAtraccionEnum preferenciaAtraccion) {
+	public Usuario(String nombre, double presupuesto, double tiempoDisponible, String preferenciaAtraccion) {
 		this.nombre = nombre;
 		this.presupuesto = presupuesto;
 		this.tiempoDisponible = tiempoDisponible;
@@ -46,7 +46,7 @@ public class Usuario {
 		}
 	}
 
-	public TipoAtraccionEnum getPreferenciaAtraccion() {
+	public String getPreferenciaAtraccion() {
 		return preferenciaAtraccion;
 	}
 
@@ -78,6 +78,24 @@ public class Usuario {
 				&& promocion.tieneCupos();
 	}
 
+	public double getCostoTotalPromociones() {
+		double montoTotal = 0;
+		for (int i = 0; i < promociones.size(); i++) {
+			montoTotal += promociones.get(i).getMonto();
+		}
+
+		return montoTotal;
+	}
+	
+	public double getTiempoTotalPromociones() {
+		double tiempoTotal = 0;
+		for (int i = 0; i < promociones.size(); i++) {
+			tiempoTotal += promociones.get(i).getTiempo();
+		}
+
+		return tiempoTotal;
+	}
+	
 	public String getTotalesPromociones() {
 		double montoTotal = 0;
 		double tiempoTotal = 0;
@@ -91,7 +109,7 @@ public class Usuario {
 
 	@Override
 	public String toString() {
-		return "Usuario: " + nombre + " | Su Presupuesto: " + presupuesto + " | Su Tiempo Disponible: "
+		return "Usuario: " + nombre + " | Su Presupuesto: $" + presupuesto + " | Su Tiempo Disponible: "
 				+ tiempoDisponible + "hs  | Su tipo Atraccion Preferida: " + preferenciaAtraccion;
 	}
 

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public abstract class Promocion implements Comparable<Promocion> {
 	protected String nombre;
-	protected TipoAtraccionEnum tipo;
+	protected String tipo;
 	protected TipoPromocionEnum tipoProm;
 	protected double tiempoTotal;
 	protected ArrayList<Atraccion> atraccion;
@@ -13,7 +13,7 @@ public abstract class Promocion implements Comparable<Promocion> {
 		super();
 	}
 
-	public Promocion(String nombre, TipoAtraccionEnum tipo, TipoPromocionEnum tipoProm,
+	public Promocion(String nombre, String tipo, TipoPromocionEnum tipoProm,
 			ArrayList<Atraccion> atraccion) {
 		this.nombre = nombre;
 		this.tipo = tipo;
@@ -34,7 +34,7 @@ public abstract class Promocion implements Comparable<Promocion> {
 		return costo;
 	}
 
-	public TipoAtraccionEnum getTipo() {
+	public String getTipo() {
 		return tipo;
 	}
 
@@ -58,6 +58,14 @@ public abstract class Promocion implements Comparable<Promocion> {
 		String aux = "";
 		for (int i = 0; i < atraccion.size(); i++) {
 			aux += atraccion.get(i).toString() + "\n";
+		}
+		return aux;
+	}
+	
+	public String getAtraccionesItinenario() {
+		String aux = "";
+		for (int i = 0; i < atraccion.size(); i++) {
+			aux += atraccion.get(i).getNombre() + "|";
 		}
 		return aux;
 	}
