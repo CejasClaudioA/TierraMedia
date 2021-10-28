@@ -17,8 +17,8 @@ public class Sistema {
 	private ArrayList<Promocion> promociones;
 
 	public Sistema() throws IOException, SQLException {
-		this.promociones = cargarPromocionesDAO();
-		this.usuarios = cargarUsuariosDAO();
+		this.promociones = cargarPromociones();
+		this.usuarios = cargarUsuario();
 	}
 
 	public void reset() throws SQLException {
@@ -71,11 +71,11 @@ public class Sistema {
 		preparedStatement.executeUpdate();
 		preparedStatement.close();
 		
-		this.promociones = cargarPromocionesDAO();
-		this.usuarios = cargarUsuariosDAO();
+		this.promociones = cargarPromociones();
+		this.usuarios = cargarUsuario();
 	}
 
-	public ArrayList<Usuario> cargarUsuariosDAO() throws SQLException {
+	public ArrayList<Usuario> cargarUsuario() throws SQLException {
 		ArrayList<Usuario> usuariosAux = new ArrayList<>();
 		@SuppressWarnings("unused")
 		ArrayList<Promocion> promocionesAux = new ArrayList<>();
@@ -104,7 +104,7 @@ public class Sistema {
 		return usuariosAux;
 	}
 
-	public ArrayList<Atraccion> cargarAtraccionesDAO() throws SQLException {
+	public ArrayList<Atraccion> cargarAtracciones() throws SQLException {
 		ArrayList<Atraccion> atraccionesAux = new ArrayList<>();
 		Connection connection = ConnectionProvider.getConnection();
 		PreparedStatement preparedStatement = connection.prepareStatement("select * from Atracciones");
@@ -119,7 +119,7 @@ public class Sistema {
 		return atraccionesAux;
 	}
 
-	public ArrayList<Promocion> cargarPromocionesDAO() throws SQLException {
+	public ArrayList<Promocion> cargarPromociones() throws SQLException {
 		Connection connection = ConnectionProvider.getConnection();
 		PreparedStatement preparedStatement = connection.prepareStatement("select * from Promociones");
 		ResultSet resultSet = preparedStatement.executeQuery();
@@ -131,7 +131,7 @@ public class Sistema {
 		return promocionesAux;
 	}
 	
-	public ArrayList<String> cargarTipoAtraccionDAO() throws SQLException{
+	public ArrayList<String> cargarTipoAtraccion() throws SQLException{
 		ArrayList<String> tipoAtraccionesAux = new ArrayList<>();
 		Connection connection = ConnectionProvider.getConnection();
 		PreparedStatement preparedStatement = connection.prepareStatement("select * from TipoAtracciones");
@@ -173,10 +173,10 @@ public class Sistema {
 			preparedStatement.setInt(1, promocion.getAtraccion().get(i).getCupo() - 1);
 			preparedStatement.setString(2, promocion.getAtraccion().get(i).getNombre());
 			preparedStatement.executeUpdate();
-			cargarAtraccionesDAO();
+			cargarAtracciones();
 		}
 		preparedStatement.close();
-		cargarPromocionesDAO();
+		cargarPromociones();
 	}
 
 	public Usuario actualizarUsuario(Usuario usuario, Promocion promocion, double Presupuesto, double tiempoDisponible)
@@ -193,7 +193,7 @@ public class Sistema {
 		preparedStatement.setString(4, usuario.getNombre());
 		preparedStatement.executeUpdate();
 		preparedStatement.close();
-		cargarUsuariosDAO();
+		cargarUsuario();
 		return usuario;
 	}
 

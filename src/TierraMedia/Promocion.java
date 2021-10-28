@@ -1,6 +1,7 @@
 package TierraMedia;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public abstract class Promocion implements Comparable<Promocion> {
 	protected String nombre;
@@ -111,8 +112,27 @@ public abstract class Promocion implements Comparable<Promocion> {
 	}
 
 	@Override
+	public int hashCode() {
+		return Objects.hash(nombre, tiempoTotal, tipo);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Promocion other = (Promocion) obj;
+		return Objects.equals(nombre, other.nombre)
+				&& Double.doubleToLongBits(tiempoTotal) == Double.doubleToLongBits(other.tiempoTotal)
+				&& Objects.equals(tipo, other.tipo);
+	}
+
+	@Override
 	public String toString() {
-		String aux = "Nombre: " + nombre + " | " + "Tipo: " + tipo + " | " + "Monto total: " + getMonto() + " | "
+		String aux = "Nombre: " + nombre + " | "+ "Tipo de promocion: " + tipoProm + " | " + "Tipo de atracciones: " + tipo + " | " + "Monto total: " + getMonto() + " | "
 				+ "Tiempo total: " + getTiempoTotal() + " | " + "Atracciones: ";
 		for (int i = 0; i < atraccion.size(); i++) {
 			aux += atraccion.get(i).getNombre() + " | ";

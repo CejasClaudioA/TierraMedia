@@ -9,10 +9,6 @@ public class Atraccion {
 	private int cupo;
 	private String tipoAtraccion;
 
-	public Atraccion() {
-
-	}
-
 	public Atraccion(String nombre, double costoDeVisita, double tiempo, int cupo, String tipoAtraccion) {
 		this.nombre = nombre;
 		this.costoDeVisita = costoDeVisita;
@@ -67,7 +63,7 @@ public class Atraccion {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(costoDeVisita, cupo, nombre, tiempo, tipoAtraccion);
+		return Objects.hash(nombre, tipoAtraccion);
 	}
 
 	@Override
@@ -79,10 +75,7 @@ public class Atraccion {
 		if (getClass() != obj.getClass())
 			return false;
 		Atraccion other = (Atraccion) obj;
-		return Double.doubleToLongBits(costoDeVisita) == Double.doubleToLongBits(other.costoDeVisita)
-				&& cupo == other.cupo && Objects.equals(nombre, other.nombre)
-				&& Double.doubleToLongBits(tiempo) == Double.doubleToLongBits(other.tiempo)
-				&& tipoAtraccion == other.tipoAtraccion;
+		return Objects.equals(nombre, other.nombre) && Objects.equals(tipoAtraccion, other.tipoAtraccion);
 	}
 
 	@Override
