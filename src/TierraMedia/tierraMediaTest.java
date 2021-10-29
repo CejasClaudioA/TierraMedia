@@ -5,7 +5,6 @@ import java.sql.SQLException;
 
 import org.junit.jupiter.api.Test;
 
-
 class tierraMediaTest {
 
 	@Test

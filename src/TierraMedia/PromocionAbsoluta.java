@@ -12,13 +12,8 @@ public class PromocionAbsoluta extends Promocion {
 	}
 
 	@Override
-	public double getMonto() {
-		return this.montoPromo;
-	}
-
-	@Override
 	public double getMontoPromo() {
-		return getCosto() - this.atraccion.size();
+		return getCosto();
 	}
 
 }

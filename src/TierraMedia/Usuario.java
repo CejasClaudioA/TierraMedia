@@ -20,10 +20,6 @@ public class Usuario {
 		return nombre;
 	}
 
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
-
 	public double getPresupuesto() {
 		return presupuesto;
 	}
@@ -81,12 +77,12 @@ public class Usuario {
 	public double getCostoTotalPromociones() {
 		double montoTotal = 0;
 		for (int i = 0; i < promociones.size(); i++) {
-			montoTotal += promociones.get(i).getMonto();
+			montoTotal += promociones.get(i).getMontoPromo();
 		}
 
 		return montoTotal;
 	}
-	
+
 	public double getTiempoTotalPromociones() {
 		double tiempoTotal = 0;
 		for (int i = 0; i < promociones.size(); i++) {
@@ -95,12 +91,12 @@ public class Usuario {
 
 		return tiempoTotal;
 	}
-	
+
 	public String getTotalesPromociones() {
 		double montoTotal = 0;
 		double tiempoTotal = 0;
 		for (int i = 0; i < promociones.size(); i++) {
-			montoTotal += promociones.get(i).getMonto();
+			montoTotal += promociones.get(i).getMontoPromo();
 			tiempoTotal += promociones.get(i).getTiempo();
 		}
 

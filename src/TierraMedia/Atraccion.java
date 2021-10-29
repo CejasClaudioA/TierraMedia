@@ -21,10 +21,6 @@ public class Atraccion {
 		return nombre;
 	}
 
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
-
 	public double getCostoDeVisita() {
 		return costoDeVisita;
 	}
@@ -55,10 +51,6 @@ public class Atraccion {
 
 	public String getTipoAtraccion() {
 		return tipoAtraccion;
-	}
-
-	public void setTipoAtraccion(String tipoAtraccion) {
-		this.tipoAtraccion = tipoAtraccion;
 	}
 
 	@Override

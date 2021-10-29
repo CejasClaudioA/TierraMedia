@@ -14,8 +14,7 @@ public abstract class Promocion implements Comparable<Promocion> {
 		super();
 	}
 
-	public Promocion(String nombre, String tipo, TipoPromocionEnum tipoProm,
-			ArrayList<Atraccion> atraccion) {
+	public Promocion(String nombre, String tipo, TipoPromocionEnum tipoProm, ArrayList<Atraccion> atraccion) {
 		this.nombre = nombre;
 		this.tipo = tipo;
 		this.tipoProm = tipoProm;
@@ -62,7 +61,7 @@ public abstract class Promocion implements Comparable<Promocion> {
 		}
 		return aux;
 	}
-	
+
 	public String getAtraccionesItinenario() {
 		String aux = "";
 		for (int i = 0; i < atraccion.size(); i++) {
@@ -132,8 +131,9 @@ public abstract class Promocion implements Comparable<Promocion> {
 
 	@Override
 	public String toString() {
-		String aux = "Nombre: " + nombre + " | "+ "Tipo de promocion: " + tipoProm + " | " + "Tipo de atracciones: " + tipo + " | " + "Monto total: " + getMonto() + " | "
-				+ "Tiempo total: " + getTiempoTotal() + " | " + "Atracciones: ";
+		String aux = "Nombre: " + nombre + " | " + "Tipo de promocion: " + tipoProm + " | " + "Tipo de atracciones: "
+				+ tipo + " | " + "Monto total: " + getMontoPromo() + " | " + "Tiempo total: " + getTiempoTotal() + " | "
+				+ "Atracciones: ";
 		for (int i = 0; i < atraccion.size(); i++) {
 			aux += atraccion.get(i).getNombre() + " | ";
 		}
@@ -141,7 +141,5 @@ public abstract class Promocion implements Comparable<Promocion> {
 	}
 
 	public abstract double getMontoPromo();
-
-	public abstract double getMonto();
 
 }

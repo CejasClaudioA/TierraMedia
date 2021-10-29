@@ -26,7 +26,7 @@ public class Sistema {
 		PreparedStatement preparedStatement = connection.prepareStatement("delete from Atracciones");
 		preparedStatement.executeUpdate();
 		preparedStatement.close();
-		
+
 		preparedStatement = connection
 				.prepareStatement("INSERT INTO Atracciones(nombre, costoDeVisita, tiempo, cupo, tipoAtraccion) VALUES  "
 						+ "('Minas Tirith', 5.0, 2.5, 10, 'PAISAJE'), ('La Comarca', 5.0, 2.5, 10, 'PAISAJE'), "
@@ -38,11 +38,11 @@ public class Sistema {
 						+ "('Numeror', 4.5, 3.0, 23, 'PAISAJE'), " + "('Fangorn', 5.5, 6.0, 2, 'DEGUSTACION');");
 		preparedStatement.executeUpdate();
 		preparedStatement.close();
-		
+
 		preparedStatement = connection.prepareStatement("delete from Promociones");
 		preparedStatement.executeUpdate();
 		preparedStatement.close();
-		
+
 		preparedStatement = connection
 				.prepareStatement("INSERT INTO Promociones(nombre, tipo, tipoProm, atraccion, descuento) VALUES "
 						+ "('Pack Aventura V1', 'AVENTURA', 'PROMOCIONPORCENTUAL', 'Bosque Negro|Mordor', 20), "
@@ -57,7 +57,7 @@ public class Sistema {
 		preparedStatement = connection.prepareStatement("delete from Usuarios");
 		preparedStatement.executeUpdate();
 		preparedStatement.close();
-		
+
 		preparedStatement = connection.prepareStatement(
 				"INSERT INTO Usuarios(nombre, presupuesto, tiempoDisponible, preferenciaAtraccion) VALUES "
 						+ "('Sam', 36.5, 20.0, 'DEGUSTACION'), " + "('Gandalf', 100.0, 50.0, 'PAISAJE'), "
@@ -66,11 +66,11 @@ public class Sistema {
 						+ "('Saruman', 49.5, 33.5, 'PAISAJE');");
 		preparedStatement.executeUpdate();
 		preparedStatement.close();
-		
+
 		preparedStatement = connection.prepareStatement("delete from Itinerarios");
 		preparedStatement.executeUpdate();
 		preparedStatement.close();
-		
+
 		this.promociones = cargarPromociones();
 		this.usuarios = cargarUsuario();
 	}
@@ -82,7 +82,7 @@ public class Sistema {
 		Connection connection = ConnectionProvider.getConnection();
 		PreparedStatement preparedStatement = connection.prepareStatement("select * from Usuarios");
 		ResultSet resultSet = preparedStatement.executeQuery();
-		
+
 		while (resultSet.next()) {
 			Usuario Usuario = new Usuario(resultSet.getString("nombre"), resultSet.getDouble("presupuesto"),
 					resultSet.getDouble("tiempoDisponible"),
@@ -130,8 +130,8 @@ public class Sistema {
 		preparedStatement.close();
 		return promocionesAux;
 	}
-	
-	public ArrayList<String> cargarTipoAtraccion() throws SQLException{
+
+	public ArrayList<String> cargarTipoAtraccion() throws SQLException {
 		ArrayList<String> tipoAtraccionesAux = new ArrayList<>();
 		Connection connection = ConnectionProvider.getConnection();
 		PreparedStatement preparedStatement = connection.prepareStatement("select * from TipoAtracciones");
@@ -141,16 +141,16 @@ public class Sistema {
 		}
 		return tipoAtraccionesAux;
 	}
-	
-	public String getTipoAtraccion(String tipoAtraccion) throws SQLException{
+
+	public String getTipoAtraccion(String tipoAtraccion) throws SQLException {
 		Connection connection = ConnectionProvider.getConnection();
 		PreparedStatement preparedStatement = connection
 				.prepareStatement("select * from TipoAtracciones WHERE nombre LIKE " + "'" + tipoAtraccion + "%';");
 		ResultSet resultSet = preparedStatement.executeQuery();
-		if(resultSet.getString("nombre") == null) {
+		if (resultSet.getString("nombre") == null) {
 			return "n/a";
 		}
-		return resultSet.getString("nombre");	
+		return resultSet.getString("nombre");
 	}
 
 	public Atraccion seleccionarAtraccion(String atraccion) throws SQLException {
@@ -161,7 +161,7 @@ public class Sistema {
 		return new Atraccion(resultSet.getString("nombre"), resultSet.getDouble("costoDeVisita"),
 				resultSet.getDouble("tiempo"), resultSet.getInt("cupo"),
 				getTipoAtraccion(resultSet.getString("tipoAtraccion")));
-		
+
 	}
 
 	public void actualizarPromocion(Promocion promocion) throws SQLException {
@@ -232,7 +232,7 @@ public class Sistema {
 			promocionesAux = construirListaPromociones(usuario, this.promociones);
 			while (promocionesAux.size() > 0) {
 				System.out.println("\t" + "Presupuesto restante: $" + usuario.getPresupuesto()
-						+ "| Tiempo disponible restante: " + usuario.getTiempoDisponible() + "hs" +"\n");
+						+ "| Tiempo disponible restante: " + usuario.getTiempoDisponible() + "hs" + "\n");
 				System.out.println(
 						"\t" + "Seleccione una promocion con el numero correspondiente o escriba x para salir: ");
 				for (int i = 0; i < promocionesAux.size(); i++) {
@@ -316,8 +316,7 @@ public class Sistema {
 					TipoPromocionEnum.valueOf(resultSet.getString("tipoProm")), atraccionesAux);
 			break;
 		case PROMOCIONAXB:
-			Promocion = new PromocionAxB(resultSet.getString("nombre"),
-					getTipoAtraccion(resultSet.getString("tipo")),
+			Promocion = new PromocionAxB(resultSet.getString("nombre"), getTipoAtraccion(resultSet.getString("tipo")),
 					TipoPromocionEnum.valueOf(resultSet.getString("tipoProm")), atraccionesAux);
 		}
 		return Promocion;
@@ -325,7 +324,8 @@ public class Sistema {
 
 	public void menu() throws SQLException, IOException {
 		System.out.println("\n" + "TIERRA MEDIA" + "\n");
-		System.out.println("Los itinerarios se generaran en formato txt en el directorio: C:\\Users\\Public\\Documents" + "\n");
+		System.out.println(
+				"Los itinerarios se generaran en formato txt en el directorio: C:\\Users\\Public\\Documents" + "\n");
 		System.out.println("Ingrese a un usuario con el numero correspondiente: " + "\n" + "----------------------");
 		@SuppressWarnings("resource")
 		Scanner sc = new Scanner(System.in);
@@ -360,7 +360,7 @@ public class Sistema {
 
 	public void generarItinerarioDAO(Usuario usuario) throws IOException, SQLException {
 		String Atracciones = "";
-		
+
 		for (int i = 0; i < usuario.getPromociones().size(); i++) {
 			Atracciones += usuario.getPromociones().get(i).getAtraccionesItinenario();
 		}
@@ -372,7 +372,7 @@ public class Sistema {
 		preparedStatement.executeUpdate();
 		preparedStatement.close();
 	}
-	
+
 	public void generarItinerarioTXT(Usuario usuario) throws IOException {
 		File nombre_de_objeto_fichero = new File(
 				"C:/Users/Public/Documents/atracciones" + usuario.getNombre() + ".txt");
