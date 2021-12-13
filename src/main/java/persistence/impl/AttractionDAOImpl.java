@@ -34,7 +34,7 @@ public class AttractionDAOImpl implements AttractionDAO {
 	@Override
 	public List<Attraction> findByUser(String attractionsId) {
 		List<Attraction> attractions = new LinkedList<Attraction>();
-		if(attractionsId != "") {
+		if(attractionsId != null) {
 			for (String s : attractionsId.split("\\|")) {
 				attractions.add(find(Integer.parseInt(s)));
 			}
