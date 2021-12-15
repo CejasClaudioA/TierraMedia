@@ -1,18 +1,21 @@
 package model;
 
-import java.util.ArrayList;
-
 public class PromotionAxB extends Promotion {
 	protected double montoPromo;
 
-	public PromotionAxB(Integer id, String name, String type, String typeProm, String attractionsId) {
-		super(id, name, type, typeProm, attractionsId);
-		this.montoPromo = getMontoPromo();
+	public PromotionAxB(Integer id, String name, String type, String typeProm, String attractionsId, double montoPromo) {
+		super(id, name, type, typeProm, attractionsId, montoPromo);
+		if(attractionsId != null) {
+			this.montoPromo = getMontoPromo();
+		}
+	}
+	
+	public PromotionAxB(Integer id, String name, String type, String typeProm) {
+		super(id, name, type, typeProm);
 	}
 
-	@Override
-	public double getMontoPromo() {
-		return getCost() - this.attractions.get(this.attractions.size() - 1).getCapacity();
+	public boolean isValid() {
+		return true;
 	}
-
+	
 }

@@ -6,8 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
-
-import model.Attraction;
 import model.User;
 import model.nullobjects.NullUser;
 import persistence.UserDAO;
@@ -26,6 +24,7 @@ public class UserDAOImpl implements UserDAO {
 			statement.setString(2, user.getPassword());
 			int rows = statement.executeUpdate();
 
+			statement.close();
 			return rows;
 		} catch (Exception e) {
 			throw new MissingDataException(e);
@@ -34,16 +33,18 @@ public class UserDAOImpl implements UserDAO {
 
 	public int update(User user) {
 		try {
-			String sql = "UPDATE USERS SET COINS = ?, TIME = ?, ATTRACTIONS = ?  WHERE ID = ?";
+			String sql = "UPDATE USERS SET COINS = ?, TIME = ?, ATTRACTIONS = ?, PREFERENCE = ?  WHERE ID = ?";
 			Connection conn = ConnectionProvider.getConnection();
 
 			PreparedStatement statement = conn.prepareStatement(sql);
 			statement.setDouble(1, user.getCoins());
 			statement.setDouble(2, user.getTime());
 			statement.setString(3, user.getAttractionsId());
-			statement.setDouble(4, user.getId());
+			statement.setString(4, user.getPreference());
+			statement.setDouble(5, user.getId());
 			int rows = statement.executeUpdate();
 
+			statement.close();
 			return rows;
 		} catch (Exception e) {
 			throw new MissingDataException(e);
@@ -59,6 +60,7 @@ public class UserDAOImpl implements UserDAO {
 			statement.setString(1, user.getUsername());
 			int rows = statement.executeUpdate();
 
+			statement.close();
 			return rows;
 		} catch (Exception e) {
 			throw new MissingDataException(e);
@@ -79,6 +81,7 @@ public class UserDAOImpl implements UserDAO {
 				user = toUser(resultados);
 			}
 
+			statement.close();
 			return user;
 		} catch (Exception e) {
 			throw new MissingDataException(e);
@@ -99,6 +102,7 @@ public class UserDAOImpl implements UserDAO {
 				user = toUser(resultados);
 			}
 
+			statement.close();
 			return user;
 		} catch (Exception e) {
 			throw new MissingDataException(e);
@@ -115,6 +119,7 @@ public class UserDAOImpl implements UserDAO {
 			resultados.next();
 			int total = resultados.getInt("TOTAL");
 
+			statement.close();
 			return total;
 		} catch (Exception e) {
 			throw new MissingDataException(e);
@@ -133,6 +138,7 @@ public class UserDAOImpl implements UserDAO {
 				usuarios.add(toUser(resultados));
 			}
 
+			statement.close();
 			return usuarios;
 		} catch (Exception e) {
 			throw new MissingDataException(e);

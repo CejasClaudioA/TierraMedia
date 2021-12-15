@@ -17,12 +17,13 @@ public class UserService {
 		return userDAO.find(id);
 	}
 
-	public User update(Integer id, String username, Double coins, Double time) {
+	public User update(Integer id, String username, String preference, Double coins, Double time) {
 
 		UserDAO userDAO = DAOFactory.getUserDAO();
 		User user = userDAO.find(id);
 
 		user.setUsername(username);
+		user.setPreference(preference);
 		user.setCoins(coins);
 		user.setTime(time);
 

@@ -26,7 +26,6 @@ public class ListItinenarioSerlet extends HttpServlet implements Servlet{
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		User user = (User) req.getSession().getAttribute("user");
 		List<User> users = userService.list();
 		req.setAttribute("users", users);
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/views/sessions/itinerary.jsp");

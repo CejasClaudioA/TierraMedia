@@ -7,6 +7,8 @@ import persistence.commons.GenericDAO;
 
 public interface AttractionDAO extends GenericDAO<Attraction> {
 
-	public List<Attraction> findByUser(String s);
+	public List<Attraction> findByAttractionsId(String attractionsId);
+
+	public List<Attraction> findByTypeAttraction(String TypeAttraction);
 
 }

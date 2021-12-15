@@ -20,19 +20,18 @@ public class AttractionDAOImpl implements AttractionDAO {
 			Connection conn = ConnectionProvider.getConnection();
 			PreparedStatement statement = conn.prepareStatement(sql);
 			ResultSet resultados = statement.executeQuery();
-
 			List<Attraction> attractions = new LinkedList<Attraction>();
 			while (resultados.next()) {
 				attractions.add(toAttraction(resultados));
 			}
-
+			statement.close();
 			return attractions;
 		} catch (Exception e) {
 			throw new MissingDataException(e);
 		}
 	}
 	@Override
-	public List<Attraction> findByUser(String attractionsId) {
+	public List<Attraction> findByAttractionsId(String attractionsId) {
 		List<Attraction> attractions = new LinkedList<Attraction>();
 		if(attractionsId != null) {
 			for (String s : attractionsId.split("\\|")) {
@@ -56,8 +55,30 @@ public class AttractionDAOImpl implements AttractionDAO {
 			if (resultados.next()) {
 				attraction = toAttraction(resultados);
 			}
-
+			
+			statement.close();
 			return attraction;
+		} catch (Exception e) {
+			throw new MissingDataException(e);
+		}
+	}
+	
+	@Override
+	public List<Attraction> findByTypeAttraction(String TypeAttraction) {
+		try {
+			String sql = "SELECT * FROM ATTRACTIONS WHERE type = ?";
+			Connection conn = ConnectionProvider.getConnection();
+			PreparedStatement statement = conn.prepareStatement(sql);
+			statement.setString(1, TypeAttraction);
+			
+			ResultSet resultados = statement.executeQuery();
+			
+			List<Attraction> attractions = new LinkedList<Attraction>();
+			while (resultados.next()) {
+				attractions.add(toAttraction(resultados));
+			}
+			statement.close();
+			return attractions;
 		} catch (Exception e) {
 			throw new MissingDataException(e);
 		}
@@ -70,17 +91,19 @@ public class AttractionDAOImpl implements AttractionDAO {
 	@Override
 	public int insert(Attraction attraction) {
 		try {
-			String sql = "INSERT INTO ATTRACTIONS (NAME, COST, DURATION, CAPACITY) VALUES (?, ?, ?, ?)";
+			String sql = "INSERT INTO ATTRACTIONS (NAME, TYPE, COST, DURATION, CAPACITY) VALUES (?, ?, ?, ?, ?)";
 			Connection conn = ConnectionProvider.getConnection();
 
 			PreparedStatement statement = conn.prepareStatement(sql);
 			int i = 1;
 			statement.setString(i++, attraction.getName());
+			statement.setString(i++, attraction.getType());
 			statement.setDouble(i++, attraction.getCost());
 			statement.setDouble(i++, attraction.getDuration());
 			statement.setInt(i++, attraction.getCapacity());
 			int rows = statement.executeUpdate();
-
+			
+			statement.close();
 			return rows;
 		} catch (Exception e) {
 			throw new MissingDataException(e);
@@ -90,18 +113,19 @@ public class AttractionDAOImpl implements AttractionDAO {
 	@Override
 	public int update(Attraction attraction) {
 		try {
-			String sql = "UPDATE ATTRACTIONS SET NAME = ?, COST = ?, DURATION = ?, CAPACITY = ? WHERE ID = ?";
+			String sql = "UPDATE ATTRACTIONS SET NAME = ?, TYPE = ?, COST = ?, DURATION = ?, CAPACITY = ? WHERE ID = ?";
 			Connection conn = ConnectionProvider.getConnection();
 
 			PreparedStatement statement = conn.prepareStatement(sql);
-			int i = 1;
-			statement.setString(i++, attraction.getName());
-			statement.setDouble(i++, attraction.getCost());
-			statement.setDouble(i++, attraction.getDuration());
-			statement.setInt(i++, attraction.getCapacity());
-			statement.setInt(i++, attraction.getId());
+			statement.setString(1, attraction.getName());
+			statement.setString(2, attraction.getType());
+			statement.setDouble(3, attraction.getCost());
+			statement.setDouble(4, attraction.getDuration());
+			statement.setInt(5, attraction.getCapacity());
+			statement.setInt(6, attraction.getId());
 			int rows = statement.executeUpdate();
-
+			
+			statement.close();
 			return rows;
 		} catch (Exception e) {
 			throw new MissingDataException(e);
@@ -117,7 +141,8 @@ public class AttractionDAOImpl implements AttractionDAO {
 			PreparedStatement statement = conn.prepareStatement(sql);
 			statement.setInt(1, attraction.getId());
 			int rows = statement.executeUpdate();
-
+			
+			statement.close();
 			return rows;
 		} catch (Exception e) {
 			throw new MissingDataException(e);
@@ -134,7 +159,8 @@ public class AttractionDAOImpl implements AttractionDAO {
 
 			resultados.next();
 			int total = resultados.getInt("TOTAL");
-
+			
+			statement.close();
 			return total;
 		} catch (Exception e) {
 			throw new MissingDataException(e);

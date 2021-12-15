@@ -5,6 +5,26 @@
 <html>
 <head>
 <jsp:include page="/partials/head.jsp"></jsp:include>
+<style>
+	body {
+	    background-image: url("assets/images/backgrounds/bg4.jpg");
+	    background-attachment: fixed;
+	    background-position: center center;
+	    background-size: cover;
+	}
+	
+	h1 {
+		font-family: 'Ringbearer Medium', arial;
+        font-size: 48px;
+        text-shadow: 4px 4px 4px #aaa; 
+	}
+	
+	h5 {
+		font-family: 'Ringbearer Medium', arial;
+        font-size: 24px;
+        text-shadow: 4px 4px 4px #aaa; 
+	}
+</style>
 </head>
 <body>
 

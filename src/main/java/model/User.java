@@ -29,9 +29,10 @@ public class User {
 		this.time = time;
 	}	
 	
-	public User(Integer id, String username, Double coins, Double time) {
+	public User(Integer id, String username, String preference, Double coins, Double time) {
 		this.id = id;
 		this.username = username;
+		this.preference = preference;
 		this.coins = coins;
 		this.time = time;
 	}
@@ -69,9 +70,11 @@ public class User {
 	public void addToItinerary(Attraction attraction) {
 		this.coins -= attraction.getCost();
 		this.time -= attraction.getDuration();
+		
 		if(this.attractionsId != null) {
 			this.attractionsId += attraction.getId() + "|";
 		}else {
+			this.attractionsId = "";
 			this.attractionsId = attraction.getId() + "|";
 		}
 	}
@@ -79,7 +82,12 @@ public class User {
 	public void addPromotionToItinerary(Promotion promotion) {
 		this.coins -= promotion.getMontoPromo();
 		this.time -= promotion.getTotalDuration();
-		this.attractionsId += promotion.getAttractionsId();
+		if(this.attractionsId != null) {
+			this.attractionsId = "";
+		}else{
+			this.attractionsId += promotion.getAttractionsId();
+		}
+		
 	}
 
 	public boolean canAfford(Attraction attraction) {

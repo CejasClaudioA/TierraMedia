@@ -6,6 +6,16 @@
 			required value="${user.getUsername()}">
 	</div>
 	<div class="mb-3">
+		<label for="username" class="col-form-label">Tipo de Atraccion Preferida:</label></br> 
+		<select name="typeAttraction">
+			<option selected disabled>Eliga uno</option>
+            <c:forEach items="${typeAttractions}" var="typeAttraction">
+                <option name="typeAttraction" value="${typeAttraction.getDesc()}"> ${typeAttraction.getDesc()} </option>
+            </c:forEach>
+        </select>
+	</div>
+	
+	<div class="mb-3">
 		<label for="coins"
 			class='col-form-label ${user.errors.get("coins") != null ? "is-invalid" : "" }'>Monedas:</label>
 		<input class="form-control" type="number" id="coins" name="coins"

@@ -12,7 +12,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import model.Promotion;
 import model.User;
-import persistence.commons.DAOFactory;
 import services.PromotionService;
 
 @WebServlet("/promotions/index.do")

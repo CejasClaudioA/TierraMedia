@@ -28,7 +28,7 @@ public class ItinenarioServlet extends HttpServlet implements Servlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		User user = (User) req.getSession().getAttribute("user");
-		List<Attraction> attractions = attractionService.listByUser(user.getAttractionsId());
+		List<Attraction> attractions = attractionService.listByAttractionsId(user.getAttractionsId());
 		req.setAttribute("attractions", attractions);
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/views/sessions/index.jsp");
 		dispatcher.forward(req, resp);

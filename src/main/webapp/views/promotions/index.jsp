@@ -5,11 +5,28 @@
 <html>
 <head>
 <jsp:include page="/partials/head.jsp"></jsp:include>
+<style>
+	body {
+	    background-image: url("assets/images/backgrounds/bg2.jpg");
+	    background-attachment: fixed;
+	    background-position: center center;
+	    background-size: cover;
+	}
+	
+	h1 {
+		font-family: 'Ringbearer Medium', arial;
+        font-size: 48px;
+        text-shadow: 4px 4px 4px #aaa; 
+	}
+	
+	h5 {
+		font-family: 'Ringbearer Medium', arial;
+        font-size: 24px;
+	}
+</style>
 </head>
 <body>
-
 	<jsp:include page="/partials/nav.jsp"></jsp:include>
-
 	<main class="container">
 
 		<c:if test="${flash != null}">
@@ -26,7 +43,15 @@
 				</p>
 			</div>
 		</c:if>
-
+		
+		<c:if test="${user.isAdmin()}">
+			<div class="mb-3">
+				<a href="/TierraMedia/promotions/create.do" class="btn btn-primary"
+					role="button"> <i class="bi bi-plus-lg"></i> Nueva Promocion
+				</a>
+			</div>
+		</c:if>
+		
 		<div class="bg-light p-4 mb-3 rounded">
 			<h1>Estas son las promociones que te pueden interesar basadas en tus gustos</h1>
 		</div>
@@ -46,12 +71,14 @@
 						<td><strong><c:out value="${promotion.name}"></c:out></strong>
 							<p>${promotion.toString()}</p></td>
 						<td><c:out value="${promotion.getMontoPromo()}"></c:out></td>
-						<td><c:out value="${promotion.getTotalDuration()}"></c:out></td>
-						
+						<td><c:out value="${promotion.getTotalDuration()}"></c:out></td>	
 						<td><c:if test="${user.admin}">
 								<a href="/TierraMedia/promotions/edit.do?id=${promotion.id}"
 									class="btn btn-light rounded-0" role="button"><i
 									class="bi bi-pencil-fill"></i></a>
+								<a href="/TierraMedia/promotions/delete.do?id=${promotion.id}"
+									class="btn btn-danger rounded" role="button"><i
+									class="bi bi-x-circle-fill"></i></a>
 							</c:if> <c:choose>
 
 								<c:when
@@ -71,7 +98,7 @@
 		
 		
 		<div class="bg-light p-4 mb-3 rounded">
-			<h1>Estas son otras promociones que te pueden interesar de la Tierra Media</h1>
+			<h1>Estas son otras promociones que te pueden interesar</h1>
 		</div>
 
 		<table class="table table-stripped table-hover">
@@ -95,6 +122,9 @@
 								<a href="/TierraMedia/promotions/edit.do?id=${promotion.id}"
 									class="btn btn-light rounded-0" role="button"><i
 									class="bi bi-pencil-fill"></i></a>
+								<a href="/TierraMedia/promotions/delete.do?id=${promotion.id}"
+									class="btn btn-danger rounded" role="button"><i
+									class="bi bi-x-circle-fill"></i></a>
 							</c:if> <c:choose>
 
 								<c:when

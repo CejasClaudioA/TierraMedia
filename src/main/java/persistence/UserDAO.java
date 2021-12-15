@@ -1,6 +1,5 @@
 package persistence;
 
-import model.Attraction;
 import model.User;
 import persistence.commons.GenericDAO;
 

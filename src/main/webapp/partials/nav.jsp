@@ -1,8 +1,15 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
+<head>
+    <link href="https://allfont.es/allfont.css?fonts=ringbearer-medium" rel="stylesheet" type="text/css" />
+    <style>
+      h3 {
+        font-family: 'Ringbearer Medium', arial;
+      }
+    </style>
+  </head>
 <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
 	<div class="container-fluid">
-		<a class="navbar-brand" href="/TierraMedia/index.jsp"><h3>TURISMO EN LA TIERRA MEDIA</h3></a>
+		<a class="navbar-brand" href="/TierraMedia/index.jsp"><h3>Turismo en la Tierra Media</h3></a>
 		<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
 			data-bs-target="#navbarCollapse" aria-controls="navbarCollapse"
 			aria-expanded="false" aria-label="Toggle navigation">
@@ -11,11 +18,11 @@
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
 			<ul class="navbar-nav me-auto mb-2 mb-md-0">
 				<li class="nav-item"><a class="nav-link active"
-					aria-current="page" href="/TierraMedia/attractions/index.do"> <h5 style="color:#7B68EE">Atracciones</h5> </a></li>
+					aria-current="page" href="/TierraMedia/attractions/index.do"> <h5 style="color:#ffd700">Atracciones</h5> </a></li>
 				<li class="nav-item"><a class="nav-link active"
-					aria-current="page" href="/TierraMedia/promotions/index.do"><h5 style="color:#7B68EE">Promociones</h5></a></li>
+					aria-current="page" href="/TierraMedia/promotions/index.do"><h5 style="color:#ffd700">Promociones</h5></a></li>
 				<li class="nav-item"><a class="nav-link active"
-					aria-current="page" href="/TierraMedia/sessions/index.do"><h5 style="color:#7B68EE">Itinerario</h5></a></li>
+					aria-current="page" href="/TierraMedia/sessions/index.do"><h5 style="color:#ffd700">Itinerario</h5></a></li>
 			</ul>
 					
 			<ul class="navbar-nav">

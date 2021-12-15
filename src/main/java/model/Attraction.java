@@ -27,9 +27,10 @@ public class Attraction {
 
 	
 
-	public Attraction(Integer id, String name, Double cost, Double duration, Integer capacity) {
+	public Attraction(Integer id, String name, String type, Double cost, Double duration, Integer capacity) {
 		this.id = id;
 		this.name = name;
+		this.type = type;
 		this.cost = cost;
 		this.duration = duration;
 		this.capacity = capacity;

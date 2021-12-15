@@ -6,6 +6,15 @@
 			required value="${attraction.name}">
 	</div>
 	<div class="mb-3">
+		<label for="username" class="col-form-label">Tipo de Atraccion:</label></br> 
+		<select name="typeAttraction" class="form-control">
+			<option selected disabled>Eligir uno</option>
+            <c:forEach items="${typeAttractions}" var="typeAttraction">
+                <option name="typeAttraction" value="${typeAttraction.getDesc()}"> ${typeAttraction.getDesc()} </option>
+            </c:forEach>
+        </select>
+	</div>
+	<div class="mb-3">
 		<label for="cost"
 			class='col-form-label ${attraction.errors.get("cost") != null ? "is-invalid" : "" }'>Costo:</label>
 		<input class="form-control" type="number" id="cost" name="cost"

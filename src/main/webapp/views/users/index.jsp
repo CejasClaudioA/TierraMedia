@@ -5,6 +5,25 @@
 <html>
 <head>
 <jsp:include page="/partials/head.jsp"></jsp:include>
+<style>
+	body {
+	    background-image: url("assets/images/backgrounds/bg3.jpg");
+	    background-attachment: fixed;
+	    background-position: center center;
+	    background-size: cover;
+	}
+	
+	h1 {
+		font-family: 'Ringbearer Medium', arial;
+        font-size: 48px;
+        text-shadow: 4px 4px 4px #aaa; 
+	}
+	
+	h5 {
+		font-family: 'Ringbearer Medium', arial;
+        font-size: 24px;
+	}
+</style>
 </head>
 <body>
 
@@ -45,8 +64,8 @@
 					<tr>
 						<td><img src="<c:url value="${user.getImg()}"/>" alt="n/a" width="50" height="50"/></td>
 						<td><strong><c:out value="${user.getUsername()}"></c:out></strong></td>
-						<td><strong><c:out value="${user.getTime()}"></c:out></strong></td>
 						<td><strong><c:out value="${user.getCoins()}"></c:out></strong></td>
+						<td><strong><c:out value="${user.getTime()}"></c:out></strong></td>
 						<td>
 							<a href="/TierraMedia/users/edit.do?id=${user.getId()}"
 								class="btn btn-light rounded-0" role="button"><i
