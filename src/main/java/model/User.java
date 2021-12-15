@@ -83,8 +83,9 @@ public class User {
 		this.coins -= promotion.getMontoPromo();
 		this.time -= promotion.getTotalDuration();
 		if(this.attractionsId != null) {
-			this.attractionsId = "";
+			this.attractionsId += promotion.getAttractionsId();
 		}else{
+			this.attractionsId = "";
 			this.attractionsId += promotion.getAttractionsId();
 		}
 		
